@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    </head>
+    <body>
+        <script type="text/javascript">
+            $(function(){
+
+                const showCookie = function({to}) {
+                    document.cookie.split(";").forEach(cookie=>{
+                        const keyvalue = cookie.split('=');
+                        if (keyvalue[0] == "SESSION_COOKIE") {
+                            $(to).text("Cookie Value : " + keyvalue[1]);
+                        }
+                    }) 
+                }
+                showCookie({to: "#cookieshow"});
+
+
+                $("#login").click(function(){
+
+                    
+                    const user_id = $("#user_id").val();
+                    const pass = $("#user_pass").val();
+                    $.ajax({
+                        url:'http://localhost:5555', 
+                        type:"POST",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data: JSON.stringify({username:user_id, password:pass}),
+                        xhrFields: {
+                            withCredentials: true
+                        }
+                    })
+                    .done((result) => {
+                        showCookie({to: "#cookieshow"});
+                        $("#result_login").text(result);
+                    })
+                    .fail((error) => {
+                        showCookie({to: "#cookieshow"});
+                        $('#result_login').text(JSON.stringify(error));
+                    });
+                });
+
+                $("#sessionid").click(function(){
+                    $.ajax({
+                        url:'http://localhost:5555/sessionid', 
+                        type:"GET",
+                        contentType: "application/json; charset=utf-8"
+                    })
+                    .done((result) => {
+                        $("#result_sessionid").text(result);
+                    })
+                    .fail((error) => {
+                        $('#result_sessionid').text(JSON.stringify(error));
+                    });
+                });
+            
+            });
+        </script>
+        <form>
+            <input id="user_id" type="text" value="demo" placeholder="user_id" />
+            <input id="user_pass" type="password" value="demo" placeholder="password" />
+            <input id="login" type="button" value="login" /><br />
+            <p id="cookieshow"></p>
+            <p id="result_login"></p>
+
+            <input id="sessionid" type="button" value="sessionid" /><br />
+            <p id="result_sessionid"></p>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "name": "express-session-resolver",
+  "version": "0.1.2",
+  "description": "the module makes enable to read session ID which is generated from Express-Session. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cessial6/express-session-resolver.git"
+  },
+  "keywords": [
+    "express",
+    "session",
+    "socketio"
+  ],
+  "author": "Boi Brando",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cessial6/express-session-resolver/issues"
+  },
+  "homepage": "https://github.com/cessial6/express-session-resolver#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.4",
+    "promise-mysql": "^3.3.1"
+  }
+}
